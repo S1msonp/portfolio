@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pham Hai Nam Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  //cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  //fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #0f172a; color: #e2e8f0; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .bg-grid {
+      background-image: linear-gradient(rgba(6,182,212,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6,182,212,.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .blob { position: fixed; border-radius: 50%; filter: blur(90px); opacity: .18; pointer-events: none; z-index: 0; }
+    .glass {
+      background: rgba(30,41,59,.55);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(99,102,241,.18); border-radius: 1.25rem;
+      transition: border-color .4s ease, box-shadow .4s ease, transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .glass:hover { border-color: rgba(6,182,212,.45); box-shadow: 0 0 32px rgba(6,182,212,.12), 0 8px 32px rgba(0,0,0,.4); transform: translateY(-4px); }
+    .grad-text {
+      background: linear-gradient(135deg, #67e8f9 0%, #818cf8 50%, #a78bfa 100%);
+      background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; animation: gradShift 4s ease infinite;
+    }
+    @keyframes gradShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    .logo-text { background: linear-gradient(135deg,#06b6d4,#818cf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .nav-scrolled {
+      background: rgba(15,23,42,.92) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(99,102,241,.15); box-shadow: 0 4px 30px rgba(0,0,0,.3);
+      padding-top: .75rem !important; padding-bottom: .75rem !important;
+    }
+    .reveal { transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+    .reveal.visible { opacity: 1 !important; transform: translateY(0) !important; }
+    .prog-fill div { transition: width 1.2s cubic-bezier(.22,1,.36,1); }
+  </style>
+</head>
+<body class="bg-grid">
+
+  <!-- BG Blobs -->
+  <div class="blob" style="width:24rem;height:24rem;background:#22d3ee;top:2.5rem;left:-8rem;"></div>
+  <div class="blob" style="width:20rem;height:20rem;background:#8b5cf6;top:33%;right:-5rem;"></div>
+  <div class="blob" style="width:16rem;height:16rem;background:#3b82f6;bottom:5rem;left:3.5rem;"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500 py-4">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <a href="#home" class="logo-text text-2xl font-black tracking-tight">S<span class="text-cyan-400">.</span></a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about"    class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 text-sm font-medium tracking-wide">About</a>
+        <a href="#skills"   class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 text-sm font-medium tracking-wide">Skills</a>
+        <a href="#projects" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 text-sm font-medium tracking-wide">Projects</a>
+        <a href="mailto:nampham11090911@gmail.com" class="glass px-5 py-2 rounded-full text-cyan-400 text-sm font-medium hover:bg-cyan-400 hover:text-slate-900 transition-all duration-300">
+          <i class="fas fa-envelope mr-2"></i>Contact
+        </a>
+      </div>
+      <button class="md:hidden text-slate-300" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 py-4 glass mt-2 mx-4">
+      <a href="#about"    class="block text-slate-300 py-2 hover:text-cyan-400">About</a>
+      <a href="#skills"   class="block text-slate-300 py-2 hover:text-cyan-400">Skills</a>
+      <a href="#projects" class="block text-slate-300 py-2 hover:text-cyan-400">Projects</a>
+      <a href="mailto:nampham11090911@gmail.com" class="block text-cyan-400 py-2">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="min-h-screen flex items-center justify-center relative px-6 pt-20">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="reveal opacity-0 translate-y-8">
+        <div class="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium mb-8">
+          <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
+          Available for opportunities
+        </div>
+      </div>
+      <h1 class="reveal opacity-0 translate-y-8 text-5xl md:text-7xl font-black mb-6 leading-tight">
+        <span class="text-white">Pham Hai </span><br>
+        <span class="grad-text">Nam</span>
+      </h1>
+      <p class="reveal opacity-0 translate-y-8 text-slate-400 text-xl md:text-2xl mb-4 font-light">
+        IT Helpdesk <span class="text-cyan-400">&</span> Aspiring Network / System Administrator
+      </p>
+      <p class="reveal opacity-0 translate-y-8 text-slate-500 text-base mb-12 max-w-2xl mx-auto">
+        Passionate about hardware troubleshooting, small network infrastructure design, and building hands-on IT homelabs. Studying Computer Networking at Thu Duc College of Technology.
+      </p>
+      <div class="reveal opacity-0 translate-y-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="Pham-Hai-Nam.cv.pdf" target="_blank"
+           class="bg-cyan-400 text-slate-900 px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-cyan-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+          <i class="fas fa-download mr-2"></i>Download CV
+        </a>
+        <a href="https://github.com/S1msonp" target="_blank"
+           class="glass px-8 py-4 rounded-full font-bold text-sm tracking-wide text-slate-300 hover:text-white transition-all duration-300 hover:-translate-y-1">
+          <i class="fab fa-github mr-2"></i>GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="reveal opacity-0 translate-y-8 text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-black text-white mb-4">About <span class="grad-text">Me</span></h2>
+        <div class="w-16 h-1 bg-cyan-400 mx-auto rounded-full"></div>
+      </div>
+      <div class="reveal opacity-0 translate-y-8 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-slate-400 text-lg leading-relaxed mb-6">
+            I'm a <span class="text-cyan-400 font-semibold">Computer Networking</span> student at Thu Duc College of Technology (2024–2027), with hands-on experience in IT helpdesk support, PC assembly, hardware troubleshooting, and small network infrastructure design.
+          </p>
+          <div class="space-y-3 mb-8">
+            <p class="text-slate-400"><i class="fas fa-map-marker-alt text-cyan-400 mr-2"></i>Xa Minh Duc, Thanh Pho Dong Nai</p>
+            <p class="text-slate-400"><i class="fas fa-phone text-cyan-400 mr-2"></i>0978 044 588</p>
+            <p class="text-slate-400"><i class="fas fa-envelope text-cyan-400 mr-2"></i>nampham11090911@gmail.com</p>
+            <p class="text-slate-400"><i class="fas fa-birthday-cake text-cyan-400 mr-2"></i>11/09/2006</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <span class="glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium"><i class="fas fa-network-wired mr-2"></i>Networking</span>
+            <span class="glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium"><i class="fas fa-tools mr-2"></i>IT Helpdesk</span>
+            <span class="glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium"><i class="fas fa-microchip mr-2"></i>Hardware</span>
+            <span class="glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium"><i class="fab fa-linux mr-2"></i>Linux</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="glass p-6 rounded-2xl text-center">
+            <div class="text-3xl font-black grad-text mb-2">2+</div>
+            <div class="text-slate-400 text-sm">Years Learning</div>
+          </div>
+          <div class="glass p-6 rounded-2xl text-center">
+            <div class="text-3xl font-black grad-text mb-2">10+</div>
+            <div class="text-slate-400 text-sm">Projects Done</div>
+          </div>
+          <div class="glass p-6 rounded-2xl text-center">
+            <div class="text-3xl font-black grad-text mb-2">5+</div>
+            <div class="text-slate-400 text-sm">Tech Stacks</div>
+          </div>
+          <div class="glass p-6 rounded-2xl text-center">
+            <div class="text-3xl font-black grad-text mb-2">24/7</div>
+            <div class="text-slate-400 text-sm">Home Lab</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="reveal opacity-0 translate-y-8 text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Core <span class="grad-text">Skills</span></h2>
+        <div class="w-16 h-1 bg-cyan-400 mx-auto rounded-full"></div>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="reveal opacity-0 translate-y-8 glass p-6 rounded-2xl cursor-default">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(6,182,212,.1)">
+            <i class="fas fa-network-wired text-cyan-400 text-xl"></i>
+          </div>
+          <h3 class="text-white font-bold mb-3">Cisco Networking</h3>
+          <div class="prog-fill h-1.5 bg-slate-700 rounded-full mb-2" data-width="80">
+            <div class="h-full bg-cyan-400 rounded-full w-0"></div>
+          </div>
+          <p class="text-slate-400 text-sm">OSPF, EIGRP, VLAN, VTP, HSRP, GLBP, NAT, DHCP, ACLs</p>
+        </div>
+
+        <div class="reveal opacity-0 translate-y-8 glass p-6 rounded-2xl cursor-default">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(6,182,212,.1)">
+            <i class="fas fa-tools text-cyan-400 text-xl"></i>
+          </div>
+          <h3 class="text-white font-bold mb-3">IT Helpdesk</h3>
+          <div class="prog-fill h-1.5 bg-slate-700 rounded-full mb-2" data-width="85">
+            <div class="h-full bg-cyan-400 rounded-full w-0"></div>
+          </div>
+          <p class="text-slate-400 text-sm">PC Assembly, Hardware Troubleshooting, End-user Support</p>
+        </div>
+
+        <div class="reveal opacity-0 translate-y-8 glass p-6 rounded-2xl cursor-default">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(6,182,212,.1)">
+            <i class="fas fa-server text-cyan-400 text-xl"></i>
+          </div>
+          <h3 class="text-white font-bold mb-3">Homelab Server</h3>
+          <div class="prog-fill h-1.5 bg-slate-700 rounded-full mb-2" data-width="75">
+            <div class="h-full bg-cyan-400 rounded-full w-0"></div>
+          </div>
+          <p class="text-slate-400 text-sm">Linux, Camera Systems, NAT Port, RTSP Streaming</p>
+        </div>
+
+        <div class="reveal opacity-0 translate-y-8 glass p-6 rounded-2xl cursor-default">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(6,182,212,.1)">
+            <i class="fas fa-microchip text-cyan-400 text-xl"></i>
+          </div>
+          <h3 class="text-white font-bold mb-3">Hardware</h3>
+          <div class="prog-fill h-1.5 bg-slate-700 rounded-full mb-2" data-width="88">
+            <div class="h-full bg-cyan-400 rounded-full w-0"></div>
+          </div>
+          <p class="text-slate-400 text-sm">Custom PC Build, Homelab Optimization, Modifications</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="reveal opacity-0 translate-y-8 text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Featured <span class="grad-text">Projects</span></h2>
+        <div class="w-16 h-1 bg-cyan-400 mx-auto rounded-full"></div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <div class="reveal opacity-0 translate-y-8 glass p-8 rounded-2xl">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(6,182,212,.1)">
+              <i class="fas fa-video text-cyan-400"></i>
+            </div>
+            <span class="text-cyan-400 text-xs font-semibold uppercase tracking-widest">Homelab</span>
+          </div>
+          <h3 class="text-white font-bold text-lg mb-3">Analog Camera System Setup</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">Deployed and configured an analog camera system with full network setup including NAT Port forwarding and RTSP protocol for remote live streaming access.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">CCTV</span>
+            <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">NAT</span>
+            <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">RTSP</span>
+          </div>
+        </div>
+
+        <div class="reveal opacity-0 translate-y-8 glass p-8 rounded-2xl">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(6,182,212,.1)">
+              <i class="fas fa-network-wired text-cyan-400"></i>
+            </div>
+            <span class="text-cyan-400 text-xs font-semibold uppercase tracking-widest">Networking</span>
+          </div>
+          <h3 class="text-white font-bold text-lg mb-3">Small Network Infrastructure Design</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">Designed and implemented small-to-medium network infrastructures using Cisco devices with routing protocols, VLANs, redundancy (HSRP/GLBP), and ACL security policies.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">Cisco</span>
+            <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">OSPF</span>
+            <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">VLAN</span>
+          </div>
+        </div>
+
+        <div class="reveal opacity-0 translate-y-8 glass p-8 rounded-2xl">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(6,182,212,.1)">
+              <i class="fas fa-microchip text-cyan-400"></i>
+            </div>
+            <span class="text-cyan-400 text-xs font-semibold uppercase tracking-widest">Hardware</span>
+          </div>
+          <h3 class="text-white font-bold text-lg mb-3">Custom PC Build for IT Homelab</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">Assembled and optimized custom PCs from scratch tailored for IT homelabs — including component selection, OS setup, troubleshooting, and custom hardware modifications.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">PC Build</span>
+            <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">Homelab</span>
+            <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">Hardware</span>
+          </div>
+        </div>
+
+        <div class="reveal opacity-0 translate-y-8 glass p-8 rounded-2xl">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="
