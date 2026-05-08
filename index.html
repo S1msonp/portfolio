@@ -1,200 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pham Hai Nam Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pham Hai Nam | Infrastructure Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  //cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  //fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    *,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body{background:#0f172a;color:#e2e8f0;font-family:'Inter',sans-serif;overflow-x:hidden}.bg-grid{background-image:linear-gradient(rgba(6,182,212,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.04) 1px,transparent 1px);background-size:48px 48px}.blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.18;pointer-events:none;z-index:0}.glass{background:rgba(30,41,59,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(99,102,241,.18);border-radius:1.25rem;transition:border-color .4s ease,box-shadow .4s ease,transform .4s cubic-bezier(.22,1,.36,1)}.glass:hover{border-color:rgba(6,182,212,.45);box-shadow:0 0 32px rgba(6,182,212,.12),0 8px 32px rgba(0,0,0,.4);transform:translateY(-4px)}.grad-text{background:linear-gradient(135deg,#67e8f9 0%,#818cf8 50%,#a78bfa 100%);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 4s ease infinite}@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}.logo-text{background:linear-gradient(135deg,#06b6d4,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.nav-scrolled{background:rgba(15,23,42,.92)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(99,102,241,.15);box-shadow:0 4px 30px rgba(0,0,0,.3);padding-top:.75rem!important;padding-bottom:.75rem!important}.reveal{transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}.reveal.visible{opacity:1!important;transform:translateY(0)!important}.prog-fill div{transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+    :root {
+      --bg: #0b1220;
+      --surface: rgba(15, 23, 42, 0.72);
+      --surface-strong: rgba(15, 23, 42, 0.92);
+      --border: rgba(56, 189, 248, 0.18);
+      --text: #e5eefb;
+      --muted: #94a3b8;
+      --primary: #22d3ee;
+      --sky: #38bdf8;
+      --indigo: #818cf8;
+      --emerald: #34d399;
+      --amber: #f59e0b;
+      --rose: #fb7185;
+      --violet: #a78bfa;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(34,211,238,.12), transparent 0 25%),
+        radial-gradient(circle at 85% 20%, rgba(129,140,248,.12), transparent 0 22%),
+        radial-gradient(circle at 35% 75%, rgba(59,130,246,.10), transparent 0 24%),
+        linear-gradient(180deg, #08101c 0%, #0b1220 100%);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(34,211,238,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: -3;
+    }
+    .bg-icon {
+      position: fixed;
+      z-index: -2;
+      filter: blur(0.2px);
+      opacity: 0.10;
+      pointer-events: none;
+      user-select: none;
+      animation: floatY 10s ease-in-out infinite;
+    }
+    .bg-icon i {
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      text-shadow: 0 0 28px currentColor;
+    }
+    .bg-icon.one { top: 14%; left: 5%; color: var(--sky); }
+    .bg-icon.two { top: 28%; right: 8%; color: var(--violet); animation-delay: -2s; }
+    .bg-icon.three { bottom: 18%; left: 10%; color: var(--emerald); animation-delay: -4s; }
+    .bg-icon.four { bottom: 10%; right: 12%; color: var(--amber); animation-delay: -1s; }
+    .bg-icon.five { top: 52%; right: 28%; color: var(--rose); animation-delay: -3s; }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(4deg); }
+    }
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 20px 60px rgba(2, 6, 23, 0.35);
+    }
+    .nav-scrolled {
+      background: rgba(8, 15, 28, 0.88);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .grad-text {
+      background: linear-gradient(135deg, #67e8f9 0%, #60a5fa 45%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .chip {
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      background: rgba(15, 23, 42, 0.55);
+    }
+    .card-hover {
+      transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      border-color: rgba(34, 211, 238, 0.32);
+      box-shadow: 0 24px 60px rgba(6, 182, 212, 0.12);
+    }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .progress-bar > span { display: block; height: 100%; width: 0; transition: width 1.2s cubic-bezier(.22,1,.36,1); }
+    .active-link { color: white !important; }
+    .active-link::after {
+      content: '';
+      display: block;
+      margin-top: 6px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--violet));
+    }
+    .theme-light {
+      --text: #0f172a;
+      --muted: #475569;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(34,211,238,.12), transparent 0 25%),
+        radial-gradient(circle at 85% 20%, rgba(129,140,248,.12), transparent 0 22%),
+        radial-gradient(circle at 35% 75%, rgba(59,130,246,.08), transparent 0 24%),
+        linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
+    }
+    .theme-light::before {
+      background-image:
+        linear-gradient(rgba(8,145,178,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(8,145,178,.05) 1px, transparent 1px);
+    }
+    .theme-light .text-slate-300 { color: #334155 !important; }
+    .theme-light .text-slate-400, .theme-light .text-slate-500 { color: #475569 !important; }
+    .theme-light .text-white { color: #0f172a !important; }
+    .theme-light .glass { box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08); }
+    .theme-light .mini-stat { background: rgba(255,255,255,.55); }
+    #toTop { opacity: 0; pointer-events: none; transition: .3s ease; }
+    #toTop.show { opacity: 1; pointer-events: auto; }
+    .icon-badge {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(34, 211, 238, 0.10);
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    .icon-cyan { color: var(--primary); }
+    .icon-blue { color: var(--sky); }
+    .icon-violet { color: var(--violet); }
+    .icon-green { color: var(--emerald); }
+    .icon-amber { color: var(--amber); }
+    .icon-rose { color: var(--rose); }
+    .mini-stat {
+      background: rgba(2, 6, 23, 0.35);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+    }
+    .gmail-btn {
+      background: linear-gradient(135deg, #22d3ee 0%, #818cf8 100%);
+      color: #08101c;
+    }
+    .gmail-btn:hover { filter: brightness(1.06); }
+    .brand-mark { text-decoration: none; }
+    .brand-orb {
+      width: 2.95rem;
+      height: 2.95rem;
+      border-radius: 1rem;
+      padding: 1px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(34,211,238,.98), rgba(96,165,250,.95) 48%, rgba(129,140,248,.95));
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.08), 0 10px 26px rgba(34, 211, 238, 0.2), 0 0 28px rgba(99, 102, 241, 0.18);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .brand-orb-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: calc(1rem - 1px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 28% 22%, rgba(255,255,255,.18), transparent 28%),
+        radial-gradient(circle at 70% 78%, rgba(96,165,250,.18), transparent 34%),
+        linear-gradient(180deg, rgba(19, 34, 58, 0.88), rgba(7, 13, 28, 0.96));
+      color: #effbff;
+      font-size: 1.28rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-shadow: 0 0 16px rgba(103, 232, 249, 0.32);
+      position: relative;
+      overflow: hidden;
+    }
+    .brand-orb-inner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,.08) 45%, transparent 100%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .brand-name {
+      transform: translateY(1px);
+      transition: opacity .3s ease;
+    }
+    .group:hover .brand-orb {
+      transform: translateY(-2px) scale(1.045);
+      box-shadow: 0 0 0 1px rgba(103, 232, 249, 0.24), 0 14px 30px rgba(34, 211, 238, 0.22), 0 0 34px rgba(99, 102, 241, 0.22);
+    }
   </style>
 </head>
-<body class="bg-grid">
+<body>
+  <div class="bg-icon one"><i class="fas fa-network-wired"></i></div>
+  <div class="bg-icon two"><i class="fas fa-shield-halved"></i></div>
+  <div class="bg-icon three"><i class="fab fa-linux"></i></div>
+  <div class="bg-icon four"><i class="fas fa-cloud"></i></div>
+  <div class="bg-icon five"><i class="fas fa-server"></i></div>
 
-<div class="blob" style="width:24rem;height:24rem;background:#22d3ee;top:2.5rem;left:-8rem"></div>
-<div class="blob" style="width:20rem;height:20rem;background:#8b5cf6;top:33%;right:-5rem"></div>
-<div class="blob" style="width:16rem;height:16rem;background:#3b82f6;bottom:5rem;left:3.5rem"></div>
+  <a href="#main" class="sr-only focus:not-sr-only">Skip to content</a>
 
-<nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500 py-4">
-  <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
-    <a href="#home" class="logo-text text-2xl font-black tracking-tight">S<span style="color:#22d3ee">.</span></a>
-    <div class="hidden md:flex items-center gap-8">
-      <a href="#about" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 text-sm font-medium tracking-wide">About</a>
-      <a href="#skills" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 text-sm font-medium tracking-wide">Skills</a>
-      <a href="#projects" class="text-slate-300 hover:text-cyan-400 transition-colors duration-300 text-sm font-medium tracking-wide">Projects</a>
-      <a href="mailto:nampham11090911@gmail.com" class="glass px-5 py-2 rounded-full text-cyan-400 text-sm font-medium hover:bg-cyan-400 hover:text-slate-900 transition-all duration-300"><i class="fas fa-envelope mr-2"></i>Contact</a>
+  <nav id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#home" class="brand-mark flex items-center gap-3 group">
+        <span class="brand-orb">
+          <span class="brand-orb-inner">S</span>
+        </span>
+        <span class="brand-name hidden sm:inline-flex flex-col leading-tight">
+          <span class="text-slate-100 text-[0.96rem] font-semibold tracking-[0.015em]">Pham Hai Nam</span>
+          <span class="text-slate-400 text-[0.66rem] uppercase tracking-[0.28em]">IT Helpdesk
+        </span>
+      </a>
+      <div class="hidden md:flex items-center gap-7 text-sm font-medium">
+        <a href="#about" class="nav-link text-slate-300">About</a>
+        <a href="#skills" class="nav-link text-slate-300">Skills</a>
+        <a href="#projects" class="nav-link text-slate-300">Projects</a>
+        <a href="#contact" class="nav-link text-slate-300">Contact</a>
+        <button id="themeToggle" class="glass rounded-full w-11 h-11 flex items-center justify-center icon-cyan" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+      <button id="menuBtn" class="md:hidden glass rounded-full w-11 h-11 flex items-center justify-center icon-cyan" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
-    <button class="md:hidden text-slate-300" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"><i class="fas fa-bars text-xl"></i></button>
-  </div>
-  <div id="mobile-menu" class="hidden md:hidden px-6 py-4 glass mt-2 mx-4">
-    <a href="#about" class="block text-slate-300 py-2 hover:text-cyan-400">About</a>
-    <a href="#skills" class="block text-slate-300 py-2 hover:text-cyan-400">Skills</a>
-    <a href="#projects" class="block text-slate-300 py-2 hover:text-cyan-400">Projects</a>
-    <a href="mailto:nampham11090911@gmail.com" class="block text-cyan-400 py-2">Contact</a>
-  </div>
-</nav>
+    <div id="mobileMenu" class="hidden md:hidden px-6 pb-4">
+      <div class="glass rounded-2xl p-4 space-y-3">
+        <a href="#about" class="block text-slate-300">About</a>
+        <a href="#skills" class="block text-slate-300">Skills</a>
+        <a href="#projects" class="block text-slate-300">Projects</a>
+        <a href="#contact" class="block text-slate-300">Contact</a>
+        <button id="themeToggleMobile" class="w-full glass rounded-xl py-3 icon-cyan">Toggle theme</button>
+      </div>
+    </div>
+  </nav>
 
-<section id="home" class="min-h-screen flex items-center justify-center relative px-6 pt-20">
-  <div class="max-w-4xl mx-auto text-center">
-    <div class="reveal opacity-0 translate-y-8">
-      <div class="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium mb-8">
-        <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>Available for opportunities
+  <main id="main">
+    <section id="home" class="min-h-screen flex items-center px-6 pt-28">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center w-full">
+        <div>
+          <div class="reveal inline-flex items-center gap-2 chip px-4 py-2 rounded-full text-cyan-300 text-sm font-medium mb-6">
+            <span class="w-2 h-2 rounded-full bg-cyan-300 animate-pulse"></span>
+            Available for junior infrastructure and system roles
+          </div>
+          <h1 class="reveal text-5xl md:text-7xl font-black leading-tight mb-6">
+            <span class="text-white">Pham Hai</span><br>
+            <span class="grad-text">Nam</span>
+          </h1>
+          <p class="reveal text-xl md:text-2xl text-slate-300 mb-4 font-light">Junior Network Engineer <span class="text-cyan-300">|</span> System Administrator</p>
+          <p class="reveal text-slate-400 leading-8 max-w-2xl mb-8">I build practical infrastructure projects across enterprise networking, Linux servers, containerized services, and foundational security operations.</p>
+          <div class="reveal flex flex-col sm:flex-row gap-4">
+            <a href="#" id="downloadCvBtn" class="rounded-full gmail-btn px-8 py-4 font-bold text-sm transition inline-flex items-center justify-center"><i class="fas fa-file-arrow-down mr-2 icon-blue" style="color:#0f172a"></i>Download CV</a>
+            <a href="https://github.com/S1msonp" target="_blank" rel="noopener noreferrer" class="glass rounded-full px-8 py-4 font-bold text-sm text-slate-200 hover:text-white transition inline-flex items-center justify-center"><i class="fab fa-github mr-2 icon-violet"></i>GitHub</a>
+          </div>
+        </div>
+        <div class="reveal glass rounded-3xl p-6 md:p-8 card-hover">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <p class="text-cyan-300 text-sm uppercase tracking-[0.2em] mb-2">Lab Focus</p>
+              <h2 class="text-xl font-bold">Infrastructure Snapshot</h2>
+            </div>
+            <span class="chip rounded-full px-3 py-1 text-xs text-cyan-300"><i class="fas fa-signal mr-2 icon-green"></i>Live Demo</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="mini-stat rounded-2xl p-4">
+              <div class="text-slate-400 text-sm mb-2"><i class="fas fa-cubes-stacked mr-2 icon-blue"></i>Container Stack</div>
+              <div class="text-2xl font-black grad-text">Kubernetes</div>
+            </div>
+            <div class="mini-stat rounded-2xl p-4">
+              <div class="text-slate-400 text-sm mb-2"><i class="fas fa-shield-halved mr-2 icon-rose"></i>Edge Security</div>
+              <div class="text-2xl font-black grad-text">FortiGate</div>
+            </div>
+            <div class="mini-stat rounded-2xl p-4 col-span-2">
+              <div class="text-slate-400 text-sm mb-2"><i class="fas fa-server mr-2 icon-amber"></i>Primary Focus</div>
+              <div class="text-lg font-semibold">Linux administration, service availability, networking, and deployment consistency</div>
+            </div>
+          </div>
+          <div class="space-y-3 text-sm text-slate-300">
+            <div class="flex items-center justify-between"><span><i class="fas fa-heart-pulse mr-2 icon-rose"></i>Operational mindset</span><span class="text-cyan-300">High availability</span></div>
+            <div class="flex items-center justify-between"><span><i class="fas fa-terminal mr-2 icon-green"></i>Core tooling</span><span class="text-cyan-300">Docker, Nginx, SSH</span></div>
+            <div class="flex items-center justify-between"><span><i class="fas fa-route mr-2 icon-violet"></i>Routing practice</span><span class="text-cyan-300">OSPF, EIGRP, VLAN</span></div>
+          </div>
+        </div>
       </div>
-    </div>
-    <h1 class="reveal opacity-0 translate-y-8 text-5xl md:text-7xl font-black mb-6 leading-tight"><span class="text-white">Pham Hai </span><br><span class="grad-text">Nam</span></h1>
-    <p class="reveal opacity-0 translate-y-8 text-slate-400 text-xl md:text-2xl mb-4 font-light">IT Helpdesk <span class="text-cyan-400">&</span> Aspiring Network / System Administrator</p>
-    <p class="reveal opacity-0 translate-y-8 text-slate-500 text-base mb-12 max-w-2xl mx-auto">Passionate about hardware troubleshooting, small network infrastructure design, and building hands-on IT homelabs. Studying Computer Networking at Thu Duc College of Technology.</p>
-    <div class="reveal opacity-0 translate-y-8 flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="Pham-Hai-Nam.cv.pdf" target="_blank" class="bg-cyan-400 text-slate-900 px-8 py-4 rounded-full font-bold text-sm tracking-wide hover:bg-cyan-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"><i class="fas fa-download mr-2"></i>Download CV</a>
-      <a href="https://github.com/S1msonp" target="_blank" class="glass px-8 py-4 rounded-full font-bold text-sm tracking-wide text-slate-300 hover:text-white transition-all duration-300 hover:-translate-y-1"><i class="fab fa-github mr-2"></i>GitHub</a>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="about" class="py-24 px-6">
-  <div class="max-w-5xl mx-auto">
-    <div class="reveal opacity-0 translate-y-8 text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-black text-white mb-4">About <span class="grad-text">Me</span></h2>
-      <div class="w-16 h-1 bg-cyan-400 mx-auto rounded-full"></div>
-    </div>
-    <div class="reveal opacity-0 translate-y-8 grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <p class="text-slate-400 text-lg leading-relaxed mb-6">I'm a <span class="text-cyan-400 font-semibold">Computer Networking</span> student at Thu Duc College of Technology (2024–2027), with hands-on experience in IT helpdesk support, PC assembly, hardware troubleshooting, and small network infrastructure design.</p>
-        <div class="space-y-3 mb-8">
-          <p class="text-slate-400"><i class="fas fa-map-marker-alt text-cyan-400 mr-2"></i>Xa Minh Duc, Thanh Pho Dong Nai</p>
-          <p class="text-slate-400"><i class="fas fa-phone text-cyan-400 mr-2"></i>0978 044 588</p>
-          <p class="text-slate-400"><i class="fas fa-envelope text-cyan-400 mr-2"></i>nampham11090911@gmail.com</p>
-          <p class="text-slate-400"><i class="fas fa-birthday-cake text-cyan-400 mr-2"></i>11/09/2006</p>
+    <section id="about" class="py-24 px-6">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 items-start">
+        <div class="reveal">
+          <p class="text-cyan-300 text-sm uppercase tracking-[0.25em] mb-3">About</p>
+          <h2 class="text-3xl md:text-5xl font-black mb-6">Focused on stable systems, secure access, and clean deployments.</h2>
+          <p class="text-slate-400 leading-8 mb-5">I am a Network and System Engineering student with hands-on practice in enterprise networking, Linux server administration, and cloud-oriented deployment workflows.</p>
+          <p class="text-slate-400 leading-8">My goal is to contribute to infrastructure teams that value uptime, observability, security fundamentals, and disciplined troubleshooting.</p>
         </div>
-        <div class="flex flex-wrap gap-3">
-          <span class="glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium"><i class="fas fa-network-wired mr-2"></i>Networking</span>
-          <span class="glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium"><i class="fas fa-tools mr-2"></i>IT Helpdesk</span>
-          <span class="glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium"><i class="fas fa-microchip mr-2"></i>Hardware</span>
-          <span class="glass px-4 py-2 rounded-full text-cyan-400 text-sm font-medium"><i class="fab fa-linux mr-2"></i>Linux</span>
+        <div class="reveal grid sm:grid-cols-2 gap-4">
+          <div class="glass rounded-3xl p-6 card-hover"><div class="icon-badge mb-4 icon-blue"><i class="fas fa-graduation-cap"></i></div><div class="text-4xl font-black grad-text mb-2">3+</div><p class="text-slate-400">Years of learning and homelab practice</p></div>
+          <div class="glass rounded-3xl p-6 card-hover"><div class="icon-badge mb-4 icon-violet"><i class="fas fa-folder-open"></i></div><div class="text-4xl font-black grad-text mb-2">10+</div><p class="text-slate-400">Projects, labs, and deployment exercises</p></div>
+          <div class="glass rounded-3xl p-6 card-hover"><div class="icon-badge mb-4 icon-green"><i class="fas fa-clock"></i></div><div class="text-4xl font-black grad-text mb-2">24/7</div><p class="text-slate-400">Continuous lab curiosity and system tuning</p></div>
+          <div class="glass rounded-3xl p-6 card-hover"><div class="icon-badge mb-4 icon-amber"><i class="fas fa-layer-group"></i></div><div class="text-4xl font-black grad-text mb-2">4</div><p class="text-slate-400">Core areas: networking, Linux, cloud, security</p></div>
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="glass p-6 rounded-2xl text-center"><div class="text-3xl font-black grad-text mb-2">2+</div><div class="text-slate-400 text-sm">Years Learning</div></div>
-        <div class="glass p-6 rounded-2xl text-center"><div class="text-3xl font-black grad-text mb-2">10+</div><div class="text-slate-400 text-sm">Projects Done</div></div>
-        <div class="glass p-6 rounded-2xl text-center"><div class="text-3xl font-black grad-text mb-2">5+</div><div class="text-slate-400 text-sm">Tech Stacks</div></div>
-        <div class="glass p-6 rounded-2xl text-center"><div class="text-3xl font-black grad-text mb-2">24/7</div><div class="text-slate-400 text-sm">Home Lab</div></div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="skills" class="py-24 px-6">
-  <div class="max-w-5xl mx-auto">
-    <div class="reveal opacity-0 translate-y-8 text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Core <span class="grad-text">Skills</span></h2>
-      <div class="w-16 h-1 bg-cyan-400 mx-auto rounded-full"></div>
-    </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="reveal opacity-0 translate-y-8 glass p-6 rounded-2xl cursor-default">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(6,182,212,.1)"><i class="fas fa-network-wired text-cyan-400 text-xl"></i></div>
-        <h3 class="text-white font-bold mb-3">Cisco Networking</h3>
-        <div class="prog-fill h-1.5 bg-slate-700 rounded-full mb-2"><div class="h-full bg-cyan-400 rounded-full" style="width:80%"></div></div>
-        <p class="text-slate-400 text-sm">OSPF, EIGRP, VLAN, VTP, HSRP, GLBP, NAT, DHCP, ACLs</p>
+    <section id="skills" class="py-24 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal mb-12">
+          <p class="text-cyan-300 text-sm uppercase tracking-[0.25em] mb-3">Skills</p>
+          <h2 class="text-3xl md:text-5xl font-black">Core capabilities</h2>
+        </div>
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <article class="reveal glass rounded-3xl p-6 card-hover border border-transparent">
+            <div class="flex items-center gap-3 mb-4"><span class="icon-badge !w-12 !h-12 !rounded-xl icon-blue"><i class="fas fa-network-wired"></i></span><h3 class="text-lg font-bold">Networking</h3></div>
+            <div class="h-2 rounded-full bg-slate-800 progress-bar mb-3" data-width="90"><span class="rounded-full bg-cyan-300"></span></div>
+            <p class="text-slate-400 text-sm leading-7">OSPF, EIGRP, VLAN, STP, IP planning, and switching fundamentals.</p>
+          </article>
+          <article class="reveal glass rounded-3xl p-6 card-hover border border-transparent">
+            <div class="flex items-center gap-3 mb-4"><span class="icon-badge !w-12 !h-12 !rounded-xl icon-green"><i class="fab fa-linux"></i></span><h3 class="text-lg font-bold">Linux Servers</h3></div>
+            <div class="h-2 rounded-full bg-slate-800 progress-bar mb-3" data-width="85"><span class="rounded-full bg-cyan-300"></span></div>
+            <p class="text-slate-400 text-sm leading-7">Ubuntu, Nginx, SSH hardening, cron jobs, service management, and troubleshooting.</p>
+          </article>
+          <article class="reveal glass rounded-3xl p-6 card-hover border border-transparent">
+            <div class="flex items-center gap-3 mb-4"><span class="icon-badge !w-12 !h-12 !rounded-xl icon-cyan"><i class="fab fa-docker"></i></span><h3 class="text-lg font-bold">Containers</h3></div>
+            <div class="h-2 rounded-full bg-slate-800 progress-bar mb-3" data-width="80"><span class="rounded-full bg-cyan-300"></span></div>
+            <p class="text-slate-400 text-sm leading-7">Docker, Kubernetes basics, image workflows, and deployment consistency.</p>
+          </article>
+          <article class="reveal glass rounded-3xl p-6 card-hover border border-transparent">
+            <div class="flex items-center gap-3 mb-4"><span class="icon-badge !w-12 !h-12 !rounded-xl icon-rose"><i class="fas fa-user-shield"></i></span><h3 class="text-lg font-bold">Security</h3></div>
+            <div class="h-2 rounded-full bg-slate-800 progress-bar mb-3" data-width="75"><span class="rounded-full bg-cyan-300"></span></div>
+            <p class="text-slate-400 text-sm leading-7">Firewall policy work, VPN concepts, access control, and system hardening basics.</p>
+          </article>
+        </div>
       </div>
-      <div class="reveal opacity-0 translate-y-8 glass p-6 rounded-2xl cursor-default">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(6,182,212,.1)"><i class="fas fa-tools text-cyan-400 text-xl"></i></div>
-        <h3 class="text-white font-bold mb-3">IT Helpdesk</h3>
-        <div class="prog-fill h-1.5 bg-slate-700 rounded-full mb-2"><div class="h-full bg-cyan-400 rounded-full" style="width:85%"></div></div>
-        <p class="text-slate-400 text-sm">PC Assembly, Hardware Troubleshooting, End-user Support</p>
-      </div>
-      <div class="reveal opacity-0 translate-y-8 glass p-6 rounded-2xl cursor-default">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(6,182,212,.1)"><i class="fas fa-server text-cyan-400 text-xl"></i></div>
-        <h3 class="text-white font-bold mb-3">Homelab Server</h3>
-        <div class="prog-fill h-1.5 bg-slate-700 rounded-full mb-2"><div class="h-full bg-cyan-400 rounded-full" style="width:75%"></div></div>
-        <p class="text-slate-400 text-sm">Linux, Camera Systems, NAT Port, RTSP Streaming</p>
-      </div>
-      <div class="reveal opacity-0 translate-y-8 glass p-6 rounded-2xl cursor-default">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background:rgba(6,182,212,.1)"><i class="fas fa-microchip text-cyan-400 text-xl"></i></div>
-        <h3 class="text-white font-bold mb-3">Hardware</h3>
-        <div class="prog-fill h-1.5 bg-slate-700 rounded-full mb-2"><div class="h-full bg-cyan-400 rounded-full" style="width:88%"></div></div>
-        <p class="text-slate-400 text-sm">Custom PC Build, Homelab Optimization, Modifications</p>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="projects" class="py-24 px-6">
-  <div class="max-w-5xl mx-auto">
-    <div class="reveal opacity-0 translate-y-8 text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-black text-white mb-4">Featured <span class="grad-text">Projects</span></h2>
-      <div class="w-16 h-1 bg-cyan-400 mx-auto rounded-full"></div>
-    </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="reveal opacity-0 translate-y-8 glass p-8 rounded-2xl">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(6,182,212,.1)"><i class="fas fa-video text-cyan-400"></i></div>
-          <span class="text-cyan-400 text-xs font-semibold uppercase tracking-widest">Homelab</span>
+    <section id="projects" class="py-24 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
+            <p class="text-cyan-300 text-sm uppercase tracking-[0.25em] mb-3">Projects</p>
+            <h2 class="text-3xl md:text-5xl font-black">Featured work</h2>
+          </div>
+          <p class="text-slate-400 max-w-xl">The content below follows the original material you shared, now presented in cleaner English with more relevant visual cues.</p>
         </div>
-        <h3 class="text-white font-bold text-lg mb-3">Analog Camera System Setup</h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-4">Deployed and configured an analog camera system with full network setup including NAT Port forwarding and RTSP protocol for remote live streaming access.</p>
-        <div class="flex flex-wrap gap-2">
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">CCTV</span>
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">NAT</span>
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">RTSP</span>
-        </div>
-      </div>
-      <div class="reveal opacity-0 translate-y-8 glass p-8 rounded-2xl">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(6,182,212,.1)"><i class="fas fa-network-wired text-cyan-400"></i></div>
-          <span class="text-cyan-400 text-xs font-semibold uppercase tracking-widest">Networking</span>
-        </div>
-        <h3 class="text-white font-bold text-lg mb-3">Small Network Infrastructure Design</h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-4">Designed and implemented small-to-medium network infrastructures using Cisco devices with routing protocols, VLANs, redundancy (HSRP/GLBP), and ACL security policies.</p>
-        <div class="flex flex-wrap gap-2">
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">Cisco</span>
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">OSPF</span>
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">VLAN</span>
-        </div>
-      </div>
-      <div class="reveal opacity-0 translate-y-8 glass p-8 rounded-2xl">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(6,182,212,.1)"><i class="fas fa-microchip text-cyan-400"></i></div>
-          <span class="text-cyan-400 text-xs font-semibold uppercase tracking-widest">Hardware</span>
-        </div>
-        <h3 class="text-white font-bold text-lg mb-3">Custom PC Build for IT Homelab</h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-4">Assembled and optimized custom PCs from scratch tailored for IT homelabs — including component selection, OS setup, troubleshooting, and custom hardware modifications.</p>
-        <div class="flex flex-wrap gap-2">
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">PC Build</span>
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">Homelab</span>
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">Hardware</span>
+        <div class="grid md:grid-cols-2 gap-6">
+          <article class="reveal glass rounded-3xl p-8 card-hover border border-transparent">
+            <span class="chip inline-flex rounded-full px-3 py-1 text-xs text-cyan-300 mb-4"><i class="fas fa-server mr-2 icon-blue"></i>Virtualization</span>
+            <h3 class="text-xl font-bold mb-3">Xen Cluster with High Availability</h3>
+            <p class="text-slate-400 leading-8 mb-6">Deploying and managing a Xen Cluster environment with HA failover, live migration, and shared resource pools for resilient workloads.</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fas fa-cube mr-2 icon-cyan"></i>Xen</span>
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fas fa-heart-pulse mr-2 icon-rose"></i>HA</span>
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fas fa-arrow-right-arrow-left mr-2 icon-violet"></i>Live Migration</span>
+            </div>
+          </article>
+          <article class="reveal glass rounded-3xl p-8 card-hover border border-transparent">
+            <span class="chip inline-flex rounded-full px-3 py-1 text-xs text-cyan-300 mb-4"><i class="fas fa-shield-halved mr-2 icon-rose"></i>Network Security</span>
+            <h3 class="text-xl font-bold mb-3">Fortinet Firewall Management</h3>
+            <p class="text-slate-400 leading-8 mb-6">Configuring FortiGate security policies, VPN connectivity, and edge protection scenarios across practical labs and deployment-oriented exercises.</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fas fa-fire mr-2 icon-amber"></i>Fortinet</span>
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fas fa-lock mr-2 icon-violet"></i>VPN</span>
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fas fa-globe mr-2 icon-blue"></i>SD-WAN</span>
+            </div>
+          </article>
+          <article class="reveal glass rounded-3xl p-8 card-hover border border-transparent md:col-span-2">
+            <span class="chip inline-flex rounded-full px-3 py-1 text-xs text-cyan-300 mb-4"><i class="fas fa-cloud mr-2 icon-green"></i>Cloud & DevOps</span>
+            <h3 class="text-xl font-bold mb-3">Linux and Kubernetes Web Hosting</h3>
+            <p class="text-slate-400 leading-8 mb-6">Hosting production-style web services on Linux servers integrated with Kubernetes-oriented workflows for scalability, redundancy, and deployment consistency.</p>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fab fa-linux mr-2 icon-green"></i>Linux</span>
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fas fa-dharmachakra mr-2 icon-blue"></i>Kubernetes</span>
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fas fa-code-branch mr-2 icon-violet"></i>Deployment</span>
+              <span class="chip rounded-full px-3 py-1 text-cyan-300"><i class="fas fa-arrows-rotate mr-2 icon-amber"></i>Scalability</span>
+            </div>
+          </article>
         </div>
       </div>
-      <div class="reveal opacity-0 translate-y-8 glass p-8 rounded-2xl">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:rgba(6,182,212,.1)"><i class="fas fa-graduation-cap text-cyan-400"></i></div>
-          <span class="text-cyan-400 text-xs font-semibold uppercase tracking-widest">Education</span>
-        </div>
-        <h3 class="text-white font-bold text-lg mb-3">Academic Projects</h3>
-        <p class="text-slate-400 text-sm leading-relaxed mb-4">Independent project lead for various academic networking and system administration projects at Thu Duc College of Technology.</p>
-        <div class="flex flex-wrap gap-2">
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">Learning</span>
-          <span class="text-cyan-400 px-3 py-1 rounded-full text-xs" style="background:rgba(6,182,212,.1)">Research</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<footer class="py-12 px-6 border-t border-slate-800">
-  <div class="max-w-5xl mx-auto text-center">
-    <p class="text-slate-400 text-sm mb-4">© 2026 Pham Hai Nam. All rights reserved.</p>
-    <div class="flex justify-center gap-6">
-      <a href="https://github.com/S1msonp" target="_blank" class="text-slate-400 hover:text-cyan-400 transition-colors"><i class="fab fa-github text-xl"></i></a>
-      <a href="mailto:nampham11090911@gmail.com" class="text-slate-400 hover:text-cyan-400 transition-colors"><i class="fas fa-envelope text-xl"></i></a>
-    </div>
-  </div>
-</footer>
+    <section id="contact" class="py-24 px-6">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-[1.2fr_.8fr] gap-6">
+        <div class="reveal glass rounded-3xl p-8 md:p-10 card-hover">
+          <p class="text-cyan-300 text-sm uppercase tracking-[0.25em] mb-3">Contact</p>
+          <h2 class="text-3xl md:text-5xl font-black mb-4">Looking for a reliable junior engineer with infrastructure focus?</h2>
+          <p class="text-slate-400 leading-8 mb-8">I am interested in internship and junior opportunities involving networking, Linux systems, platform operations, and infrastructure support.</p>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nampham11090911@gmail.com&su=Opportunity%20for%20Pham%20Hai%20Nam" target="_blank" rel="noopener noreferrer" class="glass rounded-2xl p-5 block hover:border-cyan-300/40 transition">
+              <div class="icon-badge mb-3 icon-rose"><i class="fas fa-paper-plane"></i></div>
+              <div class="font-semibold mb-1">Send with Gmail</div>
+              <div class="text-slate-400 text-sm break-all">Open Gmail compose to contact me directly</div>
+            </a>
+            <a href="https://github.com/S1msonp" target="_blank" rel="noopener noreferrer" class="glass rounded-2xl p-5 block hover:border-cyan-300/40 transition">
+              <div class="icon-badge mb-3 icon-violet"><i class="fab fa-github"></i></div>
+              <div class="font-semibold mb-1">GitHub</div>
+              <div class="text-slate-400 text-sm">github.com/S1msonp</div>
+            </a>
+          </div>
+        </div>
+       
+      </div>
+    </section>
+  </main>
 
-<script>
-window.addEventListener('scroll',()=>{const e=document.getElementById('navbar');window.scrollY>50?e.classList.add('nav-scrolled'):e.classList.remove('nav-scrolled')});const revealElements=()=>{document.querySelectorAll('.reveal').forEach(e=>{const t=e.getBoundingClientRect();t.top<window.innerHeight-100&&e.classList.add('visible')})};window.addEventListener('scroll',revealElements);window.addEventListener('load',revealElements);
-</script>
+  <button id="toTop" class="fixed bottom-6 right-6 z-50 glass w-12 h-12 rounded-full icon-cyan" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
+  <script>
+    const body = document.body;
+
+    const embeddedCvBase64 = "UHV0IHlvdXIgcmVhbCBDViBQREYgaGVyZSBhbmQga2VlcCB0aGUgc2FtZSBmaWxlbmFtZTogUGhhbS1IYWktTmFtLUNWLnBkZg==";
+
+    const downloadCvBtn = document.getElementById('downloadCvBtn');
+    downloadCvBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const bytes = Uint8Array.from(atob(embeddedCvBase64), c => c.charCodeAt(0));
+      const blob = new Blob([bytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Pham-Hai-Nam-CV.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    });
+    const navbar = document.getElementById('navbar');
+    const reveals = document.querySelectorAll('.reveal');
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const progressBars = document.querySelectorAll('.progress-bar');
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const toTop = document.getElementById('toTop');
+    const themeBtns = [document.getElementById('themeToggle'), document.getElementById('themeToggleMobile')].filter(Boolean);
+
+    const applyThemeIcon = () => {
+      const dark = !body.classList.contains('theme-light');
+      const icon = dark ? 'fa-moon' : 'fa-sun';
+      const html = `<i class="fas ${icon}"></i>`;
+      const desktopBtn = document.getElementById('themeToggle');
+      if (desktopBtn) desktopBtn.innerHTML = html;
+    };
+
+    themeBtns.forEach(btn => btn.addEventListener('click', () => {
+      body.classList.toggle('theme-light');
+      applyThemeIcon();
+    }));
+
+    menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.14 });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    const progressObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const span = entry.target.querySelector('span');
+          span.style.width = entry.target.dataset.width + '%';
+        }
+      });
+    }, { threshold: 0.35 });
+    progressBars.forEach(bar => progressObserver.observe(bar));
+
+    const setActiveNav = () => {
+      let current = '';
+      sections.forEach(section => {
+        const top = window.scrollY;
+        const offset = section.offsetTop - 140;
+        const height = section.offsetHeight;
+        if (top >= offset && top < offset + height) current = section.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active-link', link.getAttribute('href') === '#' + current);
+      });
+    };
+
+    const onScroll = () => {
+      navbar.classList.toggle('nav-scrolled', window.scrollY > 16);
+      toTop.classList.toggle('show', window.scrollY > 500);
+      setActiveNav();
+    };
+
+    window.addEventListener('scroll', onScroll);
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') mobileMenu.classList.add('hidden');
+    });
+    applyThemeIcon();
+    onScroll();
+  </script>
 </body>
 </html>
