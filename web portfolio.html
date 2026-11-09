@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c29">
+  <meta name="description"
+    content="Portfolio Phạm Hải Nam — IT Helpdesk, Network & System Support.">
+  <title>Phạm Hải Nam | IT Support & Network</title>
+
+  <script>
+    // Áp dụng theme trước khi render để hạn chế nháy giao diện.
+    try {
+      const saved = localStorage.getItem("nam-theme");
+      document.documentElement.dataset.theme =
+        saved === "light" || saved === "dark"
+          ? saved
+          : matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : "dark";
+    } catch {}
+  </script>
+
+  <style>
+    :root {
+      --bg: #101c29;
+      --surface: #172737;
+      --surface-soft: #142231;
+      --text: #eef4fa;
+      --muted: #a4b6c7;
+      --accent: #67deca;
+      --accent-two: #82aaff;
+      --line: #ffffff17;
+      --header: #101c29e8;
+      --shadow: 0 22px 60px #00000020;
+      --radius: 22px;
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f4f7fa;
+      --surface: #ffffff;
+      --surface-soft: #eaf1f6;
+      --text: #172b3c;
+      --muted: #556a7b;
+      --accent: #087f74;
+      --accent-two: #365ece;
+      --line: #152b3c18;
+      --header: #f4f7faed;
+      --shadow: 0 22px 60px #20364a0a;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      transition: background .25s, color .25s;
+      isolation: isolate;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 5px;
+    }
+
+    button { color: inherit; }
+    svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    .muted { color: var(--muted); }
+    .accent { color: var(--accent); }
+    .background {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 5% 10%, #2dbea312, transparent 45%),
+        radial-gradient(ellipse at 95% 65%, #698bff12, transparent 45%);
+    }
+
+    .floating {
+      position: absolute;
+      top: 0;
+      color: var(--accent);
+      opacity: .085;
+      animation: drift var(--duration) linear infinite;
+      animation-delay: var(--delay);
+    }
+    .floating svg { width: 100%; height: 100%; }
+
+    @keyframes drift {
+      from { transform: translate3d(0, 110vh, 0) rotate(-15deg); }
+      to { transform: translate3d(50px, -160px, 0) rotate(30deg); }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--header);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .navbar {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    nav, .controls, .actions { display: flex; align-items: center; gap: 12px; }
+    nav { gap: 22px; }
+    nav a { font-size: 13px; color: var(--muted); }
+    nav a:hover { color: var(--accent); }
+
+    .control, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 12px;
+      min-height: 44px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform .2s, border-color .2s;
+    }
+    .control:hover, .button:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .control { padding: 9px 12px; }
+    .primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+    #menuButton { display: none; }
+
+    .hero {
+      min-height: 720px;
+      padding: 100px 0 80px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 70px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: clamp(46px, 6vw, 76px);
+      line-height: 1.08;
+      letter-spacing: -.06em;
+      margin: 22px 0;
+    }
+    .role {
+      font-size: clamp(18px, 2.2vw, 25px);
+      line-height: 1.5;
+      margin: 0 0 20px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .hero-description { color: var(--muted); max-width: 610px; }
+    .actions { flex-wrap: wrap; margin-top: 28px; }
+    .location { display: flex; gap: 8px; margin-top: 26px; font-size: 13px; }
+
+    .profile {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .profile::before {
+      content: "";
+      position: absolute;
+      height: 3px;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-two));
+    }
+    .profile-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+      font-family: ui-monospace, monospace;
+    }
+    .dots { display: flex; gap: 6px; }
+    .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); opacity: .55; }
+    .avatar {
+      width: 110px;
+      height: 110px;
+      margin: 32px auto 20px;
+      display: grid;
+      place-items: center;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .profile h2 { text-align: center; font-size: 23px; margin: 0; }
+    .profile-subtitle { text-align: center; font-size: 12px; margin: 6px 0 26px; }
+    .profile-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 0;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+    }
+    .profile-line span:last-child { text-align: right; color: var(--accent); }
+
+    section.content { padding: 70px 0; }
+    .section-head { max-width: 700px; margin-bottom: 32px; }
+    h2.section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -.04em;
+      line-height: 1.25;
+      margin: 12px 0;
+    }
+    .section-head p { margin: 0; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      padding: 26px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform .2s, border-color .2s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .icon-box {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      background: var(--surface-soft);
+      color: var(--accent);
+      border-radius: 13px;
+      margin-bottom: 20px;
+    }
+    .card h3 { font-size: 18px; line-height: 1.5; margin: 0 0 12px; }
+    .card p { font-size: 14px; color: var(--muted); margin: 0; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
+    .tag {
+      font-size: 11px;
+      padding: 4px 9px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      border-radius: 7px;
+      color: var(--muted);
+    }
+    .two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .date {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-family: ui-monospace, monospace;
+    }
+    .company { font-size: 14px; font-weight: 600; margin-bottom: 18px; }
+    ul.details { padding-left: 19px; color: var(--muted); font-size: 14px; }
+    ul.details li + li { margin-top: 10px; }
+    .project-number {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--accent);
+      margin-bottom: 22px;
+      font-size: 13px;
+      font-family: ui-monospace, monospace;
+    }
+
+    .contact-panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .contact-links { display: grid; gap: 12px; min-width: 0; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+    }
+    .contact-link svg { color: var(--accent); }
+    .contact-link:hover { border-color: var(--accent); }
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 1000px) {
+      .navbar { gap: 12px; }
+      nav { gap: 12px; }
+      .brand-name { display: none; }
+      .hero { gap: 30px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .container { width: calc(100% - 32px); }
+      .navbar { min-height: 70px; }
+      .brand-name { display: inline; font-size: 13px; }
+      #menuButton { display: inline-flex; }
+      nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: stretch;
+      }
+      nav.open { display: flex; }
+      nav a { padding: 9px; }
+      .hero { grid-template-columns: 1fr; padding: 60px 0 30px; gap: 40px; }
+      .profile { max-width: 460px; width: 100%; }
+      .two-columns, .contact-panel { grid-template-columns: 1fr; }
+      section.content { padding: 45px 0; }
+      .contact-panel { padding: 26px; gap: 25px; }
+      .footer-inner { flex-direction: column; gap: 5px; }
+    }
+
+    @media (max-width: 380px) {
+      .brand-name { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .floating { transform: translateY(35vh); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Bộ biểu tượng dùng chung; không phụ thuộc CDN. -->
+  <svg xmlns="http://www.w3.org/2000/svg"
+       style="position:absolute;width:0;height:0;overflow:hidden"
+       aria-hidden="true">
+    <defs>
+      <symbol id="network" viewBox="0 0 24 24">
+        <rect x="8" y="2" width="8" height="6" rx="1"/>
+        <path d="M12 8v5M4 17v-4h16v4"/>
+        <rect x="1" y="17" width="6" height="5" rx="1"/>
+        <rect x="9" y="17" width="6" height="5" rx="1"/>
+        <rect x="17" y="17" width="6" height="5" rx="1"/>
+        <path d="M12 13v4"/>
+      </symbol>
+      <symbol id="server" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="7" rx="2"/>
+        <rect x="3" y="14" width="18" height="7" rx="2"/>
+        <path d="M7 6.5h.01M7 17.5h.01M12 6.5h5M12 17.5h5"/>
+      </symbol>
+      <symbol id="terminal" viewBox="0 0 24 24">
+        <rect x="2" y="4" width="20" height="16" rx="3"/>
+        <path d="m6 9 3 3-3 3M12 15h5"/>
+      </symbol>
+      <symbol id="shield" viewBox="0 0 24 24">
+        <path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6l9-4Z"/>
+        <path d="m8 12 3 3 5-6"/>
+      </symbol>
+      <symbol id="monitor" viewBox="0 0 24 24">
+        <rect x="2" y="3" width="20" height="14" rx="2"/>
+        <path d="M12 17v4M7 21h10"/>
+      </symbol>
+      <symbol id="mail" viewBox="0 0 24 24">
+        <rect x="2" y="4" width="20" height="16" rx="3"/>
+        <path d="m3 6 9 7 9-7"/>
+      </symbol>
+      <symbol id="phone" viewBox="0 0 24 24">
+        <path d="m5 3 4 1 1 5-3 2a14 14 0 0 0 6 6l2-3 5 1 1 4c-1 5-9 2-14-3S0 4 5 3Z"/>
+      </symbol>
+      <symbol id="pin" viewBox="0 0 24 24">
+        <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </symbol>
+      <symbol id="arrow" viewBox="0 0 24 24">
+        <path d="M5 12h14m-6-6 6 6-6 6"/>
+      </symbol>
+      <symbol id="sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/>
+      </symbol>
+      <symbol id="moon" viewBox="0 0 24 24">
+        <path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z"/>
+      </symbol>
+      <symbol id="menu" viewBox="0 0 24 24">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="background" id="background" aria-hidden="true"></div>
+
+  <header>
+    <div class="container navbar">
+      <a class="brand" href="#home" aria-label="Phạm Hải Nam">
+        <span class="brand-mark">HN</span>
+        <span class="brand-name">Hải Nam<span class="accent">.</span></span>
+      </a>
+
+      <nav id="navigation" aria-label="Main navigation">
+        <a href="#about" data-text="navAbout"></a>
+        <a href="#skills" data-text="navSkills"></a>
+        <a href="#experience" data-text="navExperience"></a>
+        <a href="#projects" data-text="navProjects"></a>
+        <a href="#contact" data-text="navContact"></a>
+      </nav>
+
+      <div class="controls">
+        <button class="control" id="languageButton" type="button">EN</button>
+        <button class="control" id="themeButton" type="button"></button>
+        <button class="control" id="menuButton" type="button"
+          aria-controls="navigation" aria-expanded="false">
+          <svg aria-hidden="true"><use href="#menu"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero" id="home">
+      <div>
+        <span class="eyebrow" data-text="heroEyebrow"></span>
+        <h1>Phạm Hải Nam<span class="accent">.</span></h1>
+        <p class="role" data-text="role"></p>
+        <p class="hero-description" data-text="heroDescription"></p>
+
+        <div class="actions">
+          <a class="button primary" href="#projects">
+            <span data-text="viewProjects"></span>
+            <svg aria-hidden="true"><use href="#arrow"></use></svg>
+          </a>
+          <a class="button" href="#contact" data-text="contactMe"></a>
+        </div>
+
+        <div class="location muted">
+          <svg aria-hidden="true"><use href="#pin"></use></svg>
+          <span data-text="location"></span>
+        </div>
+      </div>
+
+      <aside class="profile" aria-label="Profile">
+        <div class="profile-top">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <span>profile.config</span>
+        </div>
+
+        <!-- Có thể thay khối HN bằng ảnh chân dung của bạn. -->
+        <img 
+	  class="avatar"
+  	  src="./avatar.jpg"
+          alt="Ảnh chân dung Phạm Hải Nam"
+          width="110"
+          height="110"
+          style="object-fit: cover;"
+
+        >
+        <h2>Phạm Hải Nam</h2>
+        <p class="profile-subtitle muted">Network & System Support</p>
+
+        <div class="profile-line">
+          <span data-text="focusLabel"></span>
+          <span>IT Helpdesk / Network</span>
+        </div>
+        <div class="profile-line">
+          <span data-text="systemsLabel"></span>
+          <span>Windows / Linux</span>
+        </div>
+        <div class="profile-line">
+          <span data-text="labLabel"></span>
+          <span>EVE-NG / VMware</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="container content" id="about">
+      <div class="section-head">
+        <span class="eyebrow">01 / <span data-text="navAbout"></span></span>
+        <h2 class="section-title" data-text="aboutTitle"></h2>
+        <p data-text="aboutDescription"></p>
+      </div>
+    </section>
+
+    <section class="container content" id="skills">
+      <div class="section-head">
+        <span class="eyebrow">02 / <span data-text="navSkills"></span></span>
+        <h2 class="section-title" data-text="skillsTitle"></h2>
+        <p data-text="skillsDescription"></p>
+      </div>
+      <div class="grid" id="skillsGrid"></div>
+    </section>
+
+    <section class="container content" id="experience">
+      <div class="section-head">
+        <span class="eyebrow">03 / <span data-text="journey"></span></span>
+        <h2 class="section-title" data-text="journeyTitle"></h2>
+      </div>
+
+      <div class="two-columns">
+        <article class="card">
+          <div class="icon-box">
+            <svg aria-hidden="true"><use href="#server"></use></svg>
+          </div>
+          <span class="date">29/06/2026 — 21/08/2026</span>
+          <h3 data-text="internshipTitle"></h3>
+          <div class="company" data-text="company"></div>
+          <ul class="details" id="experienceList"></ul>
+        </article>
+
+        <article class="card">
+          <div class="icon-box">
+            <svg aria-hidden="true"><use href="#monitor"></use></svg>
+          </div>
+          <span class="date" data-text="educationDate"></span>
+          <h3 data-text="major"></h3>
+          <div class="company" data-text="school"></div>
+          <p data-text="educationDescription"></p>
+          <div class="tags">
+            <span class="tag">Windows Server</span>
+            <span class="tag">Linux Server</span>
+            <span class="tag">Network Security</span>
+            <span class="tag">Virtualization</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="container content" id="projects">
+      <div class="section-head">
+        <span class="eyebrow">04 / <span data-text="navProjects"></span></span>
+        <h2 class="section-title" data-text="projectsTitle"></h2>
+        <p data-text="projectsDescription"></p>
+      </div>
+      <div class="grid" id="projectsGrid"></div>
+    </section>
+
+    <section class="container content" id="contact">
+      <div class="contact-panel">
+        <div>
+          <span class="eyebrow">05 / <span data-text="navContact"></span></span>
+          <h2 class="section-title" data-text="contactTitle"></h2>
+          <p class="muted" data-text="contactDescription"></p>
+        </div>
+
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:nampham1109911@gmail.com">
+            <svg aria-hidden="true"><use href="#mail"></use></svg>
+            <span>nampham1109911@gmail.com</span>
+          </a>
+          <a class="contact-link" href="tel:+84978044588">
+            <svg aria-hidden="true"><use href="#phone"></use></svg>
+            <span>0978 044 588</span>
+          </a>
+          <div class="contact-link">
+            <svg aria-hidden="true"><use href="#pin"></use></svg>
+            <span data-text="location"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Phạm Hải Nam</span>
+      <span data-text="footer"></span>
+    </div>
+  </footer>
+
+  <script>
+    const content = {
+      vi: {
+        title: "Phạm Hải Nam | IT Helpdesk & Hạ tầng mạng",
+        description: "Portfolio Phạm Hải Nam — kỹ năng hạ tầng mạng, hệ thống, IT Helpdesk và các dự án kỹ thuật.",
+        navAbout: "Giới thiệu",
+        navSkills: "Kỹ năng",
+        navExperience: "Kinh nghiệm",
+        navProjects: "Dự án",
+        navContact: "Liên hệ",
+        heroEyebrow: "IT Helpdesk · Network · System",
+        role: "Kỹ thuật viên Hạ tầng Mạng & Hệ thống IT",
+        heroDescription: "Sinh viên ngành Truyền thông và Mạng máy tính, có kinh nghiệm thực chiến qua kỳ thực tập và các dự án triển khai mạng, máy chủ, tổng đài VoIP và hệ thống camera giám sát.",
+        viewProjects: "Khám phá dự án",
+        contactMe: "Liên hệ với tôi",
+        location: "Thành phố Hồ Chí Minh, Việt Nam",
+        focusLabel: "Định hướng",
+        systemsLabel: "Hệ thống",
+        labLabel: "Môi trường lab",
+        aboutTitle: "Từ phòng lab đến hệ thống thực tế.",
+        aboutDescription: "Tôi mong muốn phát triển trong lĩnh vực IT Helpdesk / Network & System Support, vận dụng kiến thức về cấu hình thiết bị, quản trị hệ thống và xử lý sự cố phần cứng để hỗ trợ hoạt động mạng nội bộ doanh nghiệp. Tôi chú trọng thực hành, tìm hiểu nguyên nhân sự cố và tích lũy kinh nghiệm qua các môi trường lab cũng như công việc triển khai thực tế.",
+        skillsTitle: "Kỹ năng chuyên môn",
+        skillsDescription: "Tập trung vào hạ tầng mạng, quản trị hệ thống và hỗ trợ kỹ thuật.",
+        journey: "Học tập & làm việc",
+        journeyTitle: "Kinh nghiệm & học vấn",
+        internshipTitle: "Thực tập sinh Kỹ thuật IT & Hạ tầng Mạng",
+        company: "Công ty TNHH MTV Phúc An Solutions",
+        educationDate: "2024 — Nay",
+        major: "Truyền thông và Mạng máy tính",
+        school: "Trường Cao đẳng Công nghệ Thủ Đức (TDC)",
+        educationDescription: "Lớp CD24TM1. Kiến thức trọng tâm: quản trị mạng doanh nghiệp, quản trị Windows/Linux Server, an toàn mạng, cơ sở dữ liệu và ảo hóa hệ thống.",
+        projectsTitle: "Dự án kỹ thuật tiêu biểu",
+        projectsDescription: "Các dự án triển khai, thực hành và xây dựng môi trường hệ thống cá nhân.",
+        contactTitle: "Kết nối với tôi.",
+        contactDescription: "Tôi mong muốn có cơ hội làm việc trong lĩnh vực IT Helpdesk, hỗ trợ hệ thống và hạ tầng mạng doanh nghiệp.",
+        footer: "Hạ tầng mạng · Hệ thống · Hỗ trợ IT",
+        themeToLight: "Chuyển sang giao diện sáng",
+        themeToDark: "Chuyển sang giao diện tối",
+        languageLabel: "Switch to English",
+        menuLabel: "Mở hoặc đóng menu",
+        experience: [
+          "Lắp đặt, bảo trì PC; lắp ráp phần cứng theo yêu cầu, cài Windows, phần mềm văn phòng và vệ sinh thiết bị định kỳ.",
+          "Khảo sát hiện trường, kéo cáp tín hiệu và điện cho hệ thống camera Analog & IP; lắp đặt camera và cấu hình đầu ghi DVR/NVR.",
+          "Kiểm tra đường truyền, thay camera hư hỏng, khắc phục lỗi mất kết nối; thi công camera IP, switch PoE và đấu nối mạng.",
+          "Tham gia thi công camera tại trại chăn nuôi và nghiệm thu kỹ thuật trạm đổi pin VinFast."
+        ],
+        skills: [
+          {
+            icon: "network",
+            title: "Hạ tầng mạng",
+            description: "Cấu hình router MikroTik, switch Cisco, PoE và access point Wi-Fi; bấm cáp chuẩn T568A/B, chia VLAN, DHCP, DNS, NAT và VPN.",
+            tags: ["MikroTik", "Cisco", "VLAN", "DHCP / DNS", "NAT / VPN"]
+          },
+          {
+            icon: "server",
+            title: "Hệ thống & ảo hóa",
+            description: "Quản trị Windows Server, Linux Ubuntu, Docker, VMware Workstation, EVE-NG và tổng đài VoIP FreePBX/Asterisk.",
+            tags: ["Windows Server", "Ubuntu", "Docker", "VMware", "FreePBX"]
+          },
+          {
+            icon: "monitor",
+            title: "Phần cứng & thiết bị ngoại vi",
+            description: "Lắp ráp, chẩn đoán lỗi phần cứng PC; thi công, cấu hình và xử lý sự cố hệ thống camera IP/Analog, RTSP.",
+            tags: ["PC Hardware", "IT Support", "IP Camera", "DVR / NVR", "RTSP"]
+          }
+        ],
+        projects: [
+          {
+            icon: "phone",
+            date: "11/2026",
+            title: "Hệ thống tổng đài nội bộ VoIP IP-PBX",
+            description: "Triển khai máy chủ tổng đài trên Ubuntu 22.04 với FreePBX, Asterisk và Docker. Thiết lập Tailscale Mesh VPN để các máy nhánh kết nối từ xa không cần mở port trên router. Cấu hình IVR, định tuyến cuộc gọi và hộp thư thoại.",
+            tags: ["Ubuntu 22.04", "FreePBX", "Asterisk", "Docker", "Tailscale"]
+          },
+          {
+            icon: "shield",
+            date: "03/2026",
+            title: "Camera Analog, NAT Port Forwarding & RTSP",
+            description: "Lắp đặt phần cứng hệ thống camera Analog, đấu nối tín hiệu về đầu ghi và cấu hình mạng nội bộ; thực hành NAT Port Forwarding và RTSP trong phạm vi dự án.",
+            tags: ["Analog Camera", "Networking", "NAT", "RTSP"]
+          },
+          {
+            icon: "terminal",
+            date: "Dự án cá nhân",
+            title: "Home Lab & quản trị hệ thống ảo hóa",
+            description: "Cài đặt, quản trị Windows Server 2016/2019/2022 và Ubuntu Server. Mô phỏng các mô hình mạng doanh nghiệp trên EVE-NG và VMware Workstation.",
+            tags: ["Windows Server", "Ubuntu", "EVE-NG", "VMware"]
+          }
+        ]
+      },
+
+      en: {
+        title: "Pham Hai Nam | IT Helpdesk & Network Support",
+        description: "Pham Hai Nam's portfolio — networking, systems administration, IT support and technical projects.",
+        navAbout: "About",
+        navSkills: "Skills",
+        navExperience: "Experience",
+        navProjects: "Projects",
+        navContact: "Contact",
+        heroEyebrow: "IT Helpdesk · Network · System",
+        role: "Network Infrastructure & IT Systems Technician",
+        heroDescription: "A Computer Networks and Communications student with hands-on experience through an internship and projects involving networks, servers, VoIP systems and surveillance cameras.",
+        viewProjects: "Explore projects",
+        contactMe: "Get in touch",
+        location: "Ho Chi Minh City, Vietnam",
+        focusLabel: "Career focus",
+        systemsLabel: "Systems",
+        labLabel: "Lab environment",
+        aboutTitle: "From the lab to real-world systems.",
+        aboutDescription: "I aim to grow in IT Helpdesk and Network & System Support, applying my knowledge of device configuration, systems administration and hardware troubleshooting to enterprise IT environments. I focus on hands-on practice, understanding the causes of technical issues and gaining experience through labs and on-site deployments.",
+        skillsTitle: "Technical skills",
+        skillsDescription: "Focused on network infrastructure, systems administration and technical support.",
+        journey: "Education & experience",
+        journeyTitle: "Experience & education",
+        internshipTitle: "IT & Network Infrastructure Intern",
+        company: "Phuc An Solutions Company Limited",
+        educationDate: "2024 — Present",
+        major: "Computer Networks and Communications",
+        school: "Thu Duc College of Technology (TDC)",
+        educationDescription: "Class CD24TM1. Core subjects: enterprise network administration, Windows/Linux Server administration, network security, databases and system virtualization.",
+        projectsTitle: "Selected technical projects",
+        projectsDescription: "Deployment projects, practical exercises and personal lab environments.",
+        contactTitle: "Let's connect.",
+        contactDescription: "I am seeking opportunities in IT Helpdesk, systems support and enterprise network infrastructure.",
+        footer: "Networking · Systems · IT Support",
+        themeToLight: "Switch to light theme",
+        themeToDark: "Switch to dark theme",
+        languageLabel: "Chuyển sang tiếng Việt",
+        menuLabel: "Toggle navigation",
+        experience: [
+          "Installed and maintained PCs; assembled hardware, installed Windows and office software, and performed routine equipment cleaning.",
+          "Conducted site surveys, routed signal and power cables for Analog/IP cameras, installed cameras and configured DVR/NVR recorders.",
+          "Checked connectivity, replaced faulty cameras and resolved connection issues; installed IP cameras, PoE switches and network cabling.",
+          "Participated in camera installation at a livestock farm and technical acceptance work for a VinFast battery-swapping station."
+        ],
+        skills: [
+          {
+            icon: "network",
+            title: "Network infrastructure",
+            description: "Configuration of MikroTik routers, Cisco switches, PoE and Wi-Fi access points; T568A/B cabling, VLANs, DHCP, DNS, NAT and VPN.",
+            tags: ["MikroTik", "Cisco", "VLAN", "DHCP / DNS", "NAT / VPN"]
+          },
+          {
+            icon: "server",
+            title: "Systems & virtualization",
+            description: "Windows Server, Ubuntu Linux, Docker, VMware Workstation, EVE-NG and FreePBX/Asterisk VoIP systems.",
+            tags: ["Windows Server", "Ubuntu", "Docker", "VMware", "FreePBX"]
+          },
+          {
+            icon: "monitor",
+            title: "Hardware & peripherals",
+            description: "PC assembly and hardware diagnostics; installation, configuration and troubleshooting of IP/Analog camera systems and RTSP.",
+            tags: ["PC Hardware", "IT Support", "IP Camera", "DVR / NVR", "RTSP"]
+          }
+        ],
+        projects: [
+          {
+            icon: "phone",
+            date: "11/2026",
+            title: "Internal VoIP IP-PBX system",
+            description: "Deployed a PBX server on Ubuntu 22.04 using FreePBX, Asterisk and Docker. Set up a Tailscale mesh VPN for remote extensions without router port forwarding. Configured IVR, call routing and voicemail.",
+            tags: ["Ubuntu 22.04", "FreePBX", "Asterisk", "Docker", "Tailscale"]
+          },
+          {
+            icon: "shield",
+            date: "03/2026",
+            title: "Analog cameras, NAT port forwarding & RTSP",
+            description: "Installed Analog camera hardware, connected signal cables to the recorder and configured the local network; practiced NAT port forwarding and RTSP as part of the project.",
+            tags: ["Analog Camera", "Networking", "NAT", "RTSP"]
+          },
+          {
+            icon: "terminal",
+            date: "Personal project",
+            title: "Home lab & virtualized systems administration",
+            description: "Installed and administered Windows Server 2016/2019/2022 and Ubuntu Server. Simulated enterprise network topologies using EVE-NG and VMware Workstation.",
+            tags: ["Windows Server", "Ubuntu", "EVE-NG", "VMware"]
+          }
+        ]
+      }
+    };
+
+    const $ = (selector) => document.querySelector(selector);
+    const root = document.documentElement;
+    let language = "vi";
+
+    function readPreference(key) {
+      try { return localStorage.getItem(key); }
+      catch { return null; }
+    }
+
+    function savePreference(key, value) {
+      try { localStorage.setItem(key, value); }
+      catch {}
+    }
+
+    const storedLanguage = readPreference("nam-language");
+    if (storedLanguage === "en" || storedLanguage === "vi") {
+      language = storedLanguage;
+    }
+
+    function icon(name) {
+      return `<svg aria-hidden="true"><use href="#${name}"></use></svg>`;
+    }
+
+    function renderTags(tags) {
+      return `<div class="tags">${
+        tags.map(tag => `<span class="tag">${tag}</span>`).join("")
+      }</div>`;
+    }
+
+    function updateThemeButton() {
+      const isDark = root.dataset.theme === "dark";
+      const label = content[language][isDark ? "themeToLight" : "themeToDark"];
+      $("#themeButton").innerHTML = icon(isDark ? "sun" : "moon");
+      $("#themeButton").setAttribute("aria-label", label);
+      $("#themeButton").title = label;
+      $('meta[name="theme-color"]').content = isDark ? "#101c29" : "#f4f7fa";
+    }
+
+    function renderLanguage() {
+      const data = content[language];
+      root.lang = language;
+      document.title = data.title;
+      $('meta[name="description"]').content = data.description;
+
+      document.querySelectorAll("[data-text]").forEach(element => {
+        element.textContent = data[element.dataset.text] || "";
+      });
+
+      $("#languageButton").textContent = language === "vi" ? "EN" : "VI";
+      $("#languageButton").setAttribute("aria-label", data.languageLabel);
+      $("#menuButton").setAttribute("aria-label", data.menuLabel);
+      $("#navigation").setAttribute(
+        "aria-label",
+        language === "vi" ? "Điều hướng chính" : "Main navigation"
+      );
+
+      $("#skillsGrid").innerHTML = data.skills.map(skill => `
+        <article class="card">
+          <div class="icon-box">${icon(skill.icon)}</div>
+          <h3>${skill.title}</h3>
+          <p>${skill.description}</p>
+          ${renderTags(skill.tags)}
+        </article>
+      `).join("");
+
+      $("#experienceList").replaceChildren(
+        ...data.experience.map(item => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          return li;
+        })
+      );
+
+      $("#projectsGrid").innerHTML = data.projects.map((project, index) => `
+        <article class="card">
+          <div class="project-number">
+            <span>0${index + 1} / ${project.date}</span>
+            ${icon(project.icon)}
+          </div>
+          <h3>${project.title}</h3>
+          <p>${project.description}</p>
+          ${renderTags(project.tags)}
+        </article>
+      `).join("");
+
+      updateThemeButton();
+    }
+
+    $("#languageButton").addEventListener("click", () => {
+      language = language === "vi" ? "en" : "vi";
+      savePreference("nam-language", language);
+      renderLanguage();
+    });
+
+    $("#themeButton").addEventListener("click", () => {
+      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+      savePreference("nam-theme", root.dataset.theme);
+      updateThemeButton();
+    });
+
+    const systemTheme = matchMedia("(prefers-color-scheme: light)");
+    systemTheme.addEventListener("change", event => {
+      if (!readPreference("nam-theme")) {
+        root.dataset.theme = event.matches ? "light" : "dark";
+        updateThemeButton();
+      }
+    });
+
+    function closeMenu() {
+      $("#navigation").classList.remove("open");
+      $("#menuButton").setAttribute("aria-expanded", "false");
+    }
+
+    $("#menuButton").addEventListener("click", () => {
+      const isOpen = $("#navigation").classList.toggle("open");
+      $("#menuButton").setAttribute("aria-expanded", String(isOpen));
+    });
+
+    $("#navigation").addEventListener("click", event => {
+      if (event.target.closest("a")) closeMenu();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    // Các icon chỉ mang tính trang trí, được ẩn khỏi screen reader.
+    const backgroundIcons = ["network", "server", "terminal", "shield", "monitor"];
+    const fragment = document.createDocumentFragment();
+
+    for (let index = 0; index < 15; index++) {
+      const element = document.createElement("div");
+      const size = 30 + Math.random() * 38;
+      element.className = "floating";
+      element.style.left = `${(index / 15) * 100}%`;
+      element.style.width = `${size}px`;
+      element.style.height = `${size}px`;
+      element.style.setProperty("--duration", `${32 + Math.random() * 30}s`);
+      element.style.setProperty("--delay", `${-Math.random() * 60}s`);
+      element.innerHTML = icon(backgroundIcons[index % backgroundIcons.length]);
+      fragment.appendChild(element);
+    }
+
+    $("#background").appendChild(fragment);
+    $("#year").textContent = new Date().getFullYear();
+    renderLanguage();
+  </script>
+</body>
+</html>
